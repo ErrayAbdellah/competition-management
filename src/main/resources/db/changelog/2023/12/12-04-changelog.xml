@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.24.xsd"
+        objectQuotingStrategy="QUOTE_ONLY_RESERVED_WORDS">
+    <changeSet id="1702417329337-1" author="ERRAY (generated)">
+        <addColumn tableName="member">
+            <column autoIncrement="true" name="id" type="BIGINT"/>
+        </addColumn>
+    </changeSet>
+    <changeSet id="1702417329337-2" author="ERRAY (generated)">
+        <addColumn tableName="hunting">
+            <column name="member_num" type="BIGINT"/>
+        </addColumn>
+    </changeSet>
+    <changeSet id="1702417329337-3" author="ERRAY (generated)">
+        <addColumn tableName="ranking">
+            <column name="member_num" type="BIGINT"/>
+        </addColumn>
+    </changeSet>
+    <changeSet id="1702417329337-4" author="ERRAY (generated)">
+        <addPrimaryKey columnNames="id" constraintName="pk_member" tableName="member"/>
+    </changeSet>
+    <changeSet id="1702417329337-5" author="ERRAY (generated)">
+        <addForeignKeyConstraint baseColumnNames="member_num" baseTableName="hunting"
+                                 constraintName="FK_HUNTING_ON_MEMBER_NUM" referencedColumnNames="id"
+                                 referencedTableName="member"/>
+    </changeSet>
+    <changeSet id="1702417329337-6" author="ERRAY (generated)">
+        <addForeignKeyConstraint baseColumnNames="member_num" baseTableName="ranking"
+                                 constraintName="FK_RANKING_ON_MEMBER_NUM" referencedColumnNames="id"
+                                 referencedTableName="member"/>
+    </changeSet>
+    <changeSet id="1702417329337-7" author="ERRAY (generated)">
+        <dropColumn columnName="member_id" tableName="hunting"/>
+    </changeSet>
+    <changeSet id="1702417329337-8" author="ERRAY (generated)">
+        <dropColumn columnName="member_id" tableName="ranking"/>
+    </changeSet>
+
+</databaseChangeLog>

@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.24.xsd"
+        objectQuotingStrategy="QUOTE_ONLY_RESERVED_WORDS">
+    <changeSet id="1702417459502-1" author="ERRAY (generated)">
+        <createTable tableName="competition">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_competition"/>
+            </column>
+            <column name="code" type="VARCHAR(255)"/>
+            <column name="date" type="DATETIME"/>
+            <column name="start_time" type="TIME"/>
+            <column name="end_time" type="TIME"/>
+            <column name="number_of_participants" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="location" type="VARCHAR(255)"/>
+            <column name="amount" type="DOUBLE">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet id="1702417459502-2" author="ERRAY (generated)">
+        <createTable tableName="fish">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_fish"/>
+            </column>
+            <column name="average_weight" type="DOUBLE">
+                <constraints nullable="false"/>
+            </column>
+            <column name="level_id" type="BIGINT"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="1702417459502-3" author="ERRAY (generated)">
+        <createTable tableName="hunting">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_hunting"/>
+            </column>
+            <column name="number_of_fish" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="fish_id" type="BIGINT"/>
+            <column name="member_num" type="BIGINT"/>
+            <column name="competition_id" type="BIGINT"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="1702417459502-4" author="ERRAY (generated)">
+        <createTable tableName="level">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_level"/>
+            </column>
+            <column name="code" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="description" type="VARCHAR(255)"/>
+            <column name="points" type="INT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet id="1702417459502-5" author="ERRAY (generated)">
+        <createTable tableName="member">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_member"/>
+            </column>
+            <column name="num" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="name" type="VARCHAR(255)"/>
+            <column name="family_name" type="VARCHAR(255)"/>
+            <column name="accession_date" type="DATETIME"/>
+            <column name="nationality" type="VARCHAR(255)"/>
+            <column name="identity_document" type="SMALLINT"/>
+            <column name="identity_number" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="1702417459502-6" author="ERRAY (generated)">
+        <createTable tableName="ranking">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_ranking"/>
+            </column>
+            <column name="rank" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="score" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="member_num" type="BIGINT"/>
+            <column name="competition_id" type="BIGINT"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="1702417459502-7" author="ERRAY (generated)">
+        <addForeignKeyConstraint baseColumnNames="level_id" baseTableName="fish" constraintName="FK_FISH_ON_LEVEL"
+                                 referencedColumnNames="id" referencedTableName="level"/>
+    </changeSet>
+    <changeSet id="1702417459502-8" author="ERRAY (generated)">
+        <addForeignKeyConstraint baseColumnNames="competition_id" baseTableName="hunting"
+                                 constraintName="FK_HUNTING_ON_COMPETITION" referencedColumnNames="id"
+                                 referencedTableName="competition"/>
+    </changeSet>
+    <changeSet id="1702417459502-9" author="ERRAY (generated)">
+        <addForeignKeyConstraint baseColumnNames="fish_id" baseTableName="hunting" constraintName="FK_HUNTING_ON_FISH"
+                                 referencedColumnNames="id" referencedTableName="fish"/>
+    </changeSet>
+    <changeSet id="1702417459502-10" author="ERRAY (generated)">
+        <addForeignKeyConstraint baseColumnNames="member_num" baseTableName="hunting"
+                                 constraintName="FK_HUNTING_ON_MEMBER_NUM" referencedColumnNames="id"
+                                 referencedTableName="member"/>
+    </changeSet>
+    <changeSet id="1702417459502-11" author="ERRAY (generated)">
+        <addForeignKeyConstraint baseColumnNames="competition_id" baseTableName="ranking"
+                                 constraintName="FK_RANKING_ON_COMPETITION" referencedColumnNames="id"
+                                 referencedTableName="competition"/>
+    </changeSet>
+    <changeSet id="1702417459502-12" author="ERRAY (generated)">
+        <addForeignKeyConstraint baseColumnNames="member_num" baseTableName="ranking"
+                                 constraintName="FK_RANKING_ON_MEMBER_NUM" referencedColumnNames="id"
+                                 referencedTableName="member"/>
+    </changeSet>
+
+</databaseChangeLog>
