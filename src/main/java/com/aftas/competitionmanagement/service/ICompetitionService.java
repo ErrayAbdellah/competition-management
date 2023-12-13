@@ -6,5 +6,5 @@ import java.util.List;
 
 public interface ICompetitionService {
     void createCompetition(CompetitionDTO competitionDTO);
-    List<CompetitionDTO> getScheduledCompetitions();
+    List<CompetitionDTO> getAllCompetitions();
 }

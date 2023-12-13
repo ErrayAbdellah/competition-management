@@ -21,6 +21,7 @@ public class Member {
     private Date accessionDate;
     private String nationality;
     private IdentityDocumentTyp identityDocument;
+    @Column(unique = true)
     private String identityNumber;
 
     @OneToMany(mappedBy = "member")

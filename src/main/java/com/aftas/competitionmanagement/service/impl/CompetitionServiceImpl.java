@@ -23,21 +23,15 @@ public class CompetitionServiceImpl implements ICompetitionService {
             Competition competition = modelMapper.map(competitionDTO, Competition.class);
             competitionRepo.save(competition);
         } else {
-            throw new DuplicateCompetitionException("Competition code already exists: " + competitionDTO.getCode());
+            throw new IllegalArgumentException("Competition code already exists: " + competitionDTO.getCode());
         }
     }
 
     @Override
-    public List<CompetitionDTO> getScheduledCompetitions() {
+    public List<CompetitionDTO> getAllCompetitions() {
         List<Competition> Competitions = competitionRepo.findAll();
         return Competitions.stream()
                 .map(competition -> modelMapper.map(competition,CompetitionDTO.class))
                 .collect(Collectors.toList());
-    }
-
-    public class DuplicateCompetitionException extends RuntimeException {
-        public DuplicateCompetitionException(String message) {
-            super(message);
-        }
     }
 }

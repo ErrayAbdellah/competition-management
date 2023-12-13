@@ -17,6 +17,7 @@ public class Competition {
     private long id;
     @Column(unique = true)
     private String code;
+    @Column(unique = true)
     private Date date;
     private Time startTime;
     private Time endTime;

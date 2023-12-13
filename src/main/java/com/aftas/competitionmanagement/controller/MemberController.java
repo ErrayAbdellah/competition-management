@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -21,31 +22,24 @@ public class MemberController {
     public ResponseEntity<List<MemberDTO>> getAllMembers() {
         List<MemberDTO> memberDTOs = memberService.getAllMembers();
         if (memberDTOs.isEmpty()) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(memberDTOs,HttpStatus.NOT_FOUND);
         }
         return new ResponseEntity<>(memberDTOs, HttpStatus.OK);
     }
 
     @GetMapping("/search-by-number")
     public ResponseEntity<MemberDTO> searchByNumber(@RequestParam Integer num) {
-        try {
             MemberDTO member = memberService.searchMembersByNumber(num);
-            if (member == null){
-                return new ResponseEntity<>(member, HttpStatus.NO_CONTENT);
-            }
             return new ResponseEntity(member, HttpStatus.OK);
-        } catch (Exception e) {
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-        }
     }
     @PostMapping
-    public ResponseEntity<String> addMember(@RequestBody MemberDTO memberDTO) {
-        try {
+    public ResponseEntity<String> addMember(@Valid @RequestBody MemberDTO memberDTO) {
+//        try {
             memberService.save(memberDTO);
-            return new ResponseEntity<>("Member added successfully", HttpStatus.CREATED);
-        } catch (Exception e) {
-            return new ResponseEntity<>("Failed to add member: " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
-        }
+            return new ResponseEntity<>("Member added successfully", HttpStatus.OK);
+//        } catch (Exception e) {
+//            return new ResponseEntity<>("Failed to add member: " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+//        }
     }
 
 }

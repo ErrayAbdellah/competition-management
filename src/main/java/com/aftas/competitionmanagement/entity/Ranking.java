@@ -2,24 +2,26 @@ package com.aftas.competitionmanagement.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+import com.aftas.competitionmanagement.entity.MemberCompetition;
 
 @Entity @ToString
 @AllArgsConstructor @NoArgsConstructor
 @Getter @Setter @Builder
 @Table(name = "ranking")
 public class Ranking {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    @EmbeddedId
+    private MemberCompetition id;
 
     private int rank;
     private int score;
 
     @ManyToOne
-    @JoinColumn(name = "member_num")
+    @JoinColumn(name = "member_id")
+    @MapsId("memberID")
     private Member member;
 
     @ManyToOne
     @JoinColumn(name = "competition_id")
+    @MapsId("competitionID")
     private Competition competition;
 }

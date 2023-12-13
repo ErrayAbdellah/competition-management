@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/v1/api-fish")
 public class FishController {
     private final IFishService fishService;
-    @PostMapping("/add")
+    @PostMapping
     public ResponseEntity<String> addFish(@RequestBody FishDTO fishDTO) {
         try {
             fishService.addFish(fishDTO);
