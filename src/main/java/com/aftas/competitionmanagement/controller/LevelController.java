@@ -1,14 +1,15 @@
 package com.aftas.competitionmanagement.controller;
 
 import com.aftas.competitionmanagement.dto.LevelDTO;
+import com.aftas.competitionmanagement.entity.Level;
 import com.aftas.competitionmanagement.service.ILevelService;
 import lombok.RequiredArgsConstructor;
+import org.apache.catalina.connector.Response;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -18,11 +19,14 @@ public class LevelController {
 
     @PostMapping
     public ResponseEntity<String> addLevel(@RequestBody LevelDTO levelDTO) {
-        try {
             levelService.addLevel(levelDTO);
-            return new ResponseEntity<>("Shooting level added successfully", HttpStatus.CREATED);
-        } catch (Exception e) {
-            return new ResponseEntity<>("Failed to add shooting level: " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
-        }
+            return new ResponseEntity<>("Shooting level added successfully", HttpStatus.OK);
     }
+
+    @GetMapping
+    public ResponseEntity<List<LevelDTO>> getAllLevel(){
+        List<LevelDTO> levelDTOS = levelService.getAllLevel();
+        return new ResponseEntity<>(levelDTOS,HttpStatus.OK);
+    }
+
 }

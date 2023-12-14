@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.24.xsd"
+        objectQuotingStrategy="QUOTE_ONLY_RESERVED_WORDS">
+    <changeSet id="1702551865894-2" author="ERRAY (generated)">
+        <addUniqueConstraint columnNames="code" constraintName="uc_level_code" tableName="level"/>
+    </changeSet>
+    <changeSet id="1702551865894-1" author="ERRAY (generated)">
+        <dropNotNullConstraint columnDataType="int" columnName="code" tableName="level"/>
+    </changeSet>
+
+</databaseChangeLog>

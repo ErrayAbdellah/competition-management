@@ -1,5 +1,7 @@
 package com.aftas.competitionmanagement.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -15,13 +17,16 @@ public class Hunting {
 
     @ManyToOne
     @JoinColumn(name = "fish_id")
+    @JsonIgnore
     private Fish fish;
 
     @ManyToOne
     @JoinColumn(name = "member_num")
+    @JsonIgnore
     private Member member;
 
     @ManyToOne
     @JoinColumn(name = "competition_id")
+    @JsonIgnore
     private Competition competition;
 }

@@ -1,5 +1,6 @@
 package com.aftas.competitionmanagement.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 import com.aftas.competitionmanagement.entity.MemberCompetition;
@@ -18,10 +19,12 @@ public class Ranking {
     @ManyToOne
     @JoinColumn(name = "member_id")
     @MapsId("memberID")
+    @JsonIgnore
     private Member member;
 
     @ManyToOne
     @JoinColumn(name = "competition_id")
     @MapsId("competitionID")
+    @JsonIgnore
     private Competition competition;
 }

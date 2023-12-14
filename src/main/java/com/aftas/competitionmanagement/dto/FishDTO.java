@@ -1,5 +1,6 @@
 package com.aftas.competitionmanagement.dto;
 
+import com.aftas.competitionmanagement.entity.Level;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -20,4 +21,5 @@ public class FishDTO {
 
     @NotBlank(message = "Fish cannot be blank")
     private double averageWeight;
+    private Level level ;
 }

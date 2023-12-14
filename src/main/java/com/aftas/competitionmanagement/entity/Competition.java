@@ -1,5 +1,7 @@
 package com.aftas.competitionmanagement.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -26,9 +28,11 @@ public class Competition {
     private double amount;
 
     @OneToMany(mappedBy = "competition")
+    @JsonIgnore
     private Set<Ranking> rankings;
 
     @OneToMany(mappedBy = "competition",cascade = CascadeType.PERSIST)
+    @JsonIgnore
     private Set<Hunting> huntings ;
 
 }
