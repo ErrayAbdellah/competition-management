@@ -34,4 +34,20 @@ public class CompetitionServiceImpl implements ICompetitionService {
                 .map(competition -> modelMapper.map(competition,CompetitionDTO.class))
                 .collect(Collectors.toList());
     }
+
+    @Override
+    public void updateCompetition(Long id, CompetitionDTO competitionDTO) {
+        Competition competition = competitionRepo.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Competition not found with ID: " + id));
+
+        modelMapper.map(competitionDTO, competition);
+
+        competitionRepo.save(competition);
+    }
+    @Override
+    public void deleteCompetition(Long id) {
+        competitionRepo.findById(id).orElseThrow(() ->
+                new IllegalArgumentException("Competition not found with ID: " + id));
+        competitionRepo.deleteById(id);
+    }
 }
