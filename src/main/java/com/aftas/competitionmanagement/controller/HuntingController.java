@@ -22,7 +22,15 @@ public class HuntingController {
 
     @PostMapping
     public ResponseEntity<String> huntingFish(@Valid @RequestBody HuntingDTO huntingDto) {
-            String result = huntingService.huntingFish(huntingDto);
-            return new ResponseEntity<>(result, HttpStatus.OK);
+        System.out.println(huntingDto);
+//        return null;
+        String result = huntingService.huntingFish(huntingDto);
+        return new ResponseEntity<>(result, HttpStatus.OK);
     }
+//    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
+//    public ResponseEntity<String> huntingFish(@RequestBody HuntingDTO huntingDto) {
+//        System.out.println(huntingDto);
+//        return null;
+//    }
+
 }

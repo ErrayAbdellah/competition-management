@@ -1,27 +1,33 @@
 package com.aftas.competitionmanagement.controller;
 
-import com.aftas.competitionmanagement.repository.IRankingRepo;
+import com.aftas.competitionmanagement.dto.RankingDTO;
+import com.aftas.competitionmanagement.entity.Ranking;
 import com.aftas.competitionmanagement.service.IRankingService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/v1/api-ranking")
 public class RankingController {
     private final IRankingService rankingService;
-    @PostMapping("/{competitionId}/register/{memberId}")
+    @PostMapping("/{competitionId}/register/{identityNumber}")
     public ResponseEntity<String> registerMemberForCompetition(
             @PathVariable Long competitionId,
-            @PathVariable Long memberId) {
+            @PathVariable String identityNumber) {
 
-        System.out.println(competitionId+" " + memberId);
-            rankingService.registerMemberForCompetition(memberId, competitionId);
-            return new ResponseEntity<>("Member registered for the competition successfully", HttpStatus.CREATED);
+        System.out.println(competitionId+" " + identityNumber);
+            rankingService.registerMemberForCompetition(identityNumber, competitionId);
+            return new ResponseEntity<String>("Code registered for the competition successfully", HttpStatus.CREATED);
+    }
+
+    @GetMapping("/updateRankings/{competitionId}")
+    public ResponseEntity<List<RankingDTO>> updateRankings(@PathVariable Long competitionId) {
+        List<RankingDTO> updatedRankings = rankingService.updateRanking(competitionId);
+        return ResponseEntity.ok(updatedRankings);
     }
 }
