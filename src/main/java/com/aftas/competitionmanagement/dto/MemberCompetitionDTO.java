@@ -1,16 +1,13 @@
 package com.aftas.competitionmanagement.dto;
 
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
-@Builder
-public class RankingDTO {
-    private MemberCompetitionDTO id;
-    private int rank;
-    private int score;
+@AllArgsConstructor
+public class MemberCompetitionDTO {
+    private long memberId;
+    private long competitionId;
 }

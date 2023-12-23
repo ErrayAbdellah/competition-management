@@ -23,10 +23,10 @@ public class HuntingDTO {
     private int numberOfFish;
 
     @NotNull(message = "Fish cannot be null")
-    private Fish fish;
+    private FishDTO fish;
 
     @NotNull(message = "Member cannot be null")
-    private long memberId;
+    private String memberCode;
 
     @NotNull(message = "Competition cannot be null")
     private long competitionId;

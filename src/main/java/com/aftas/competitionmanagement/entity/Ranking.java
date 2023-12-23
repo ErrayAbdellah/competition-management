@@ -1,5 +1,6 @@
 package com.aftas.competitionmanagement.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
@@ -19,12 +20,12 @@ public class Ranking {
     @ManyToOne
     @JoinColumn(name = "member_id")
     @MapsId("memberID")
-    @JsonIgnore
+    @JsonBackReference
     private Member member;
 
     @ManyToOne
     @JoinColumn(name = "competition_id")
+    @JsonBackReference
     @MapsId("competitionID")
-    @JsonIgnore
     private Competition competition;
 }

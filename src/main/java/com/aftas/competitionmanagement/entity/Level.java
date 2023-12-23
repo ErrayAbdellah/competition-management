@@ -1,5 +1,6 @@
 package com.aftas.competitionmanagement.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -18,6 +19,7 @@ public class Level {
     private String description;
     private int points;
 
-    @OneToMany(mappedBy = "level",cascade = CascadeType.PERSIST)
+    @OneToMany(mappedBy = "level",cascade =  {CascadeType.MERGE, CascadeType.DETACH})
+    @JsonManagedReference
     private Set<Fish> fish;
 }

@@ -21,5 +21,5 @@ public class FishDTO {
 
     @NotBlank(message = "Fish cannot be blank")
     private double averageWeight;
-    private Level level ;
+    private LevelDTO level ;
 }

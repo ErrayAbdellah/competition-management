@@ -1,5 +1,7 @@
 package com.aftas.competitionmanagement.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -14,13 +16,16 @@ public class Fish {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+    @Column(unique = true)
     private String name;
     private double averageWeight;
 
-    @ManyToOne
+    @ManyToOne(cascade =  {CascadeType.MERGE, CascadeType.DETACH})
     @JoinColumn(name = "level_id")
+//    @JsonBackReference
     private Level level;
 
-    @OneToMany(mappedBy = "fish")
+    @OneToMany(mappedBy = "fish",cascade =  {CascadeType.MERGE, CascadeType.DETACH})
+    @JsonManagedReference
     private Set<Hunting> huntings ;
 }

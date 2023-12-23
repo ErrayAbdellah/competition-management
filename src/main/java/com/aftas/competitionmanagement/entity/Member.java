@@ -2,6 +2,7 @@ package com.aftas.competitionmanagement.entity;
 
 import com.aftas.competitionmanagement.enums.IdentityDocumentTyp;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -26,9 +27,10 @@ public class Member {
     private String identityNumber;
 
     @OneToMany(mappedBy = "member")
-    @JsonIgnore
+    @JsonManagedReference
     private Set<Ranking> rankings;
 
     @OneToMany(mappedBy = "member",cascade = CascadeType.PERSIST)
+    @JsonManagedReference
     private Set<Hunting> huntings ;
 }

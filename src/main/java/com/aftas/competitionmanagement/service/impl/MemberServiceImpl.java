@@ -7,6 +7,9 @@ import com.aftas.competitionmanagement.repository.IMemberRepo;
 import com.aftas.competitionmanagement.service.IMemberService;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -39,5 +42,25 @@ public class MemberServiceImpl implements IMemberService {
                 .map(member -> modelMapper.map(member, MemberDTO.class))
                 .collect(Collectors.toList());
     }
+
+    @Override
+    public Page<Member> getAllMembersPaginated(Pageable pageable) {
+        return  memberRepo.findAll(pageable);
+    }
+
+    @Override
+    public List<MemberDTO> searchByNameOrFamilyName(String name, String familyName) {
+        List<Member> members = memberRepo.findByNameOrFamilyName(name, familyName);
+        return members.stream()
+                .map(member -> modelMapper.map(member, MemberDTO.class))
+                .collect(Collectors.toList());
+    }
+//    @Override
+//    public List<MemberDTO> getAllMembersPaginated(Pageable pageable) {
+//        return memberRepository.findAll(pageable).getContent();
+//    }
+//    @Override
+//    public List<Member> getAllMembersPaginated(org.springframework.data.domain.Pageable pageable) {
+//    }
 
 }

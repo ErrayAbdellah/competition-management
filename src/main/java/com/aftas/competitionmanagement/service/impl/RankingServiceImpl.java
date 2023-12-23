@@ -1,5 +1,6 @@
 package com.aftas.competitionmanagement.service.impl;
 
+import com.aftas.competitionmanagement.dto.RankingDTO;
 import com.aftas.competitionmanagement.entity.Competition;
 import com.aftas.competitionmanagement.entity.Member;
 import com.aftas.competitionmanagement.entity.MemberCompetition;
@@ -14,6 +15,8 @@ import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Component
 @RequiredArgsConstructor
@@ -23,9 +26,9 @@ public class RankingServiceImpl implements IRankingService {
     private final IMemberRepo memberRepo;
     private final ModelMapper modelMapper;
     @Override
-    public void registerMemberForCompetition(Long memberId, Long competitionId) {
-        Member member = memberRepo.findById(memberId)
-                .orElseThrow(() -> new IllegalArgumentException("Member not found with ID: " + memberId));
+    public void registerMemberForCompetition(String identityNumber, Long competitionId) {
+        Member member = memberRepo.findByIdentityNumber(identityNumber)
+                .orElseThrow(() -> new IllegalArgumentException("Member not found with identity number: " + identityNumber));
 
         Competition competition = competitionRepo.findById(competitionId)
                 .orElseThrow(() -> new IllegalArgumentException("Competition not found with ID: " + competitionId));
@@ -52,4 +55,22 @@ public class RankingServiceImpl implements IRankingService {
 
         rankingRepo.save(ranking);
     }
+
+    @Override
+    public List<RankingDTO> updateRanking(Long competitionId) {
+        List<Ranking> rankings = rankingRepo.findByCompetitionId(competitionId);
+        rankings.sort((r1, r2) -> Long.compare(r2.getScore(), r1.getScore()));
+
+        int rank = 1;
+        for (Ranking ranking : rankings) {
+            ranking.setRank(rank++);
+            rankingRepo.save(ranking);
+        }
+
+        return rankings.stream()
+                .map(ranking -> modelMapper.map(ranking, RankingDTO.class))
+                .collect(Collectors.toList());
+    }
+
+
 }
