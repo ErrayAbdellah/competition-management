@@ -2,14 +2,23 @@ version: '3'
 services:
   mysql:
     image: mysql:latest
-    container_name: mysqldb
     environment:
-      MYSQL_ALLOW_EMPTY_PASSWORD: 'yes'
-      MYSQL_DATABASE: db_aftas
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: aftas_db
     ports:
       - "3306:3306"
+#  mysql:
+#    image: mysql:8.0
+#    container_name: mysqldb
+#    environment:
+#      MYSQL_ALLOW_EMPTY_PASSWORD: 'yes'
+#      MYSQL_DATABASE: db_aftas
+#    ports:
+#      - "3306:3306"
   aftasbackend:
-    image: aftasbackend:v1
+#    image: aftasbackend:v1
+    build:
+      context: .
     container_name: aftasbackend
     restart: on-failure
     ports:
