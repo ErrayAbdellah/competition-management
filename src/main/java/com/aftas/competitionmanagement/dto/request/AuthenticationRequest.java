@@ -1,4 +1,4 @@
-package com.spring.s3cur1ty.dto.request;
+package com.aftas.competitionmanagement.dto.request;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
