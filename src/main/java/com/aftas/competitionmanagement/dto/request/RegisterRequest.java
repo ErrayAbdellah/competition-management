@@ -1,12 +1,9 @@
-package com.spring.s3cur1ty.dto.request;
+package com.aftas.competitionmanagement.dto.request;
 
-import com.spring.s3cur1ty.entity.Role;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import java.util.Set;
 
 @Data
 @Builder
