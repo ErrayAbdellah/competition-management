@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.24.xsd"
+        objectQuotingStrategy="QUOTE_ONLY_RESERVED_WORDS">
+    <changeSet id="1708896544282-1" author="ERRAY (generated)">
+        <createTable tableName="refresh_token">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_refreshtoken"/>
+            </column>
+            <column name="refresh_token" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="expiry_date" type="DATETIME">
+                <constraints nullable="false"/>
+            </column>
+            <column name="revoked" type="BOOLEAN">
+                <constraints nullable="false"/>
+            </column>
+            <column name="member_id" type="BIGINT"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="1708896544282-2" author="ERRAY (generated)">
+        <createTable tableName="token">
+            <column name="id" type="INT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_token"/>
+            </column>
+            <column name="token" type="VARCHAR(255)"/>
+            <column name="token_type" type="VARCHAR(255)"/>
+            <column name="revoked" type="BOOLEAN">
+                <constraints nullable="false"/>
+            </column>
+            <column name="expired" type="BOOLEAN">
+                <constraints nullable="false"/>
+            </column>
+            <column name="member_id" type="BIGINT"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="1708896544282-3" author="ERRAY (generated)">
+        <addUniqueConstraint columnNames="refresh_token" constraintName="uc_refreshtoken_refreshtoken"
+                             tableName="refresh_token"/>
+    </changeSet>
+    <changeSet id="1708896544282-4" author="ERRAY (generated)">
+        <addUniqueConstraint columnNames="token" constraintName="uc_token_token" tableName="token"/>
+    </changeSet>
+    <changeSet id="1708896544282-5" author="ERRAY (generated)">
+        <addForeignKeyConstraint baseColumnNames="member_id" baseTableName="refresh_token"
+                                 constraintName="FK_REFRESHTOKEN_ON_MEMBER" referencedColumnNames="id"
+                                 referencedTableName="member"/>
+    </changeSet>
+    <changeSet id="1708896544282-6" author="ERRAY (generated)">
+        <addForeignKeyConstraint baseColumnNames="member_id" baseTableName="token" constraintName="FK_TOKEN_ON_MEMBER"
+                                 referencedColumnNames="id" referencedTableName="member"/>
+    </changeSet>
+
+</databaseChangeLog>
