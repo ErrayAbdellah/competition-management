@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.24.xsd"
+        objectQuotingStrategy="QUOTE_ONLY_RESERVED_WORDS">
+    <changeSet id="1708896909350-1" author="ERRAY (generated)">
+        <dropForeignKeyConstraint baseTableName="refresh_token" constraintName="FK_REFRESHTOKEN_ON_MEMBER"/>
+    </changeSet>
+    <changeSet id="1708896909350-3" author="ERRAY (generated)">
+        <dropTable cascadeConstraints="true" tableName="refresh_token"/>
+    </changeSet>
+
+</databaseChangeLog>

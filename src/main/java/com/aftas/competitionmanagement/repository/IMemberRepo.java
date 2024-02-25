@@ -18,4 +18,6 @@ public interface IMemberRepo extends JpaRepository<Member,Long> {
 
     @Query("SELECT m FROM Member m WHERE m.identityNumber = :identityNumber")
     Optional<Member> findByIdentityNumber(@Param("identityNumber") String identityNumber);
+
+    Optional<Member> findByEmail(String email);
 }

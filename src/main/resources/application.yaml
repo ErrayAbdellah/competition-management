@@ -10,5 +10,9 @@
       change-log: classpath:db/changelog/changelog-master.xml
   server:
     port: 8081
+#
+#  logging:
+#    level:
+#      org.springframework.security: DEBUG
 
 
