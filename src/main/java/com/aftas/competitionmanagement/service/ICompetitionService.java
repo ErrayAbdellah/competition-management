@@ -9,5 +9,5 @@ public interface ICompetitionService {
     List<CompetitionDTO> getAllCompetitions();
     void updateCompetition(Long id, CompetitionDTO competitionDTO);
     void deleteCompetition(Long id);
-
+    List<CompetitionDTO> getCompetitionsForAuthenticatedUser();
 }

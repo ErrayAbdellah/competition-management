@@ -13,6 +13,7 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Entity @ToString
 @AllArgsConstructor @NoArgsConstructor
@@ -47,10 +48,21 @@ public class Member implements UserDetails {
     @ManyToOne(cascade =  {CascadeType.MERGE, CascadeType.DETACH},fetch = FetchType.EAGER)
     private Role role ;
 
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(new SimpleGrantedAuthority(role.getName()));
-    }
+//    @Override
+//    public Collection<? extends GrantedAuthority> getAuthorities() {
+//        return List.of(new SimpleGrantedAuthority(role.getName()));
+//    }
+@Override
+public Collection<? extends GrantedAuthority> getAuthorities() {
+    List<GrantedAuthority> authorities = role.getAuthorities().stream()
+            .map(authority -> new SimpleGrantedAuthority(authority.getName()))
+            .collect(Collectors.toList());
+
+    // Include the role name itself as an authority
+    authorities.add(new SimpleGrantedAuthority(role.getName()));
+
+    return authorities;
+}
 
     @Override
     public String getPassword() {

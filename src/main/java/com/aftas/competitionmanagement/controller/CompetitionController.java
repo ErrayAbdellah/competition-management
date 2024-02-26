@@ -18,17 +18,20 @@ import java.util.List;
 public class CompetitionController {
     private final ICompetitionService competitionService;
 
-//    @PreAuthorize("hasRole('MANAGER')")
+
     @GetMapping("/all")
     public ResponseEntity<List<CompetitionDTO>> getScheduledCompetitions() {
         List<CompetitionDTO> scheduledCompetitions = competitionService.getAllCompetitions();
         return new ResponseEntity<>(scheduledCompetitions, HttpStatus.OK);
     }
+
+    @PreAuthorize("hasAnyRole('MANAGER') || hasAnyRole('JURY')")
     @PostMapping
     public ResponseEntity<String> createCompetition(@Valid @RequestBody CompetitionDTO competitionDTO) {
         competitionService.createCompetition(competitionDTO);
         return new ResponseEntity<> ("Competition created successfully", HttpStatus.OK);
     }
+    @PreAuthorize("hasAnyRole('MANAGER') || hasAnyRole('JURY')")
     @PutMapping("/{id}")
     public ResponseEntity<?> updateCompetition(@PathVariable Long id, @RequestBody CompetitionDTO competitionDTO) {
         try {
@@ -39,6 +42,7 @@ public class CompetitionController {
         }
     }
 
+    @PreAuthorize("hasAnyRole('MANAGER') || hasAnyRole('JURY')")
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteCompetition(@PathVariable Long id) {
         try {
@@ -47,6 +51,14 @@ public class CompetitionController {
         } catch (IllegalArgumentException e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
+    }
+    @PreAuthorize("hasAnyRole('ADHERENT')")
+    @GetMapping("/current-user")
+    public ResponseEntity<List<CompetitionDTO>> getCompetitionsForCurrentUser() {
+
+            List<CompetitionDTO> competitions = competitionService.getCompetitionsForAuthenticatedUser();
+            return  new ResponseEntity<>(competitions, HttpStatus.OK);
+
     }
 
 }
